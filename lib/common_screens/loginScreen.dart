@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/student_screens/student_dashboard.dart';
 import 'package:hazir_ta/tutor_screens/dashboard.dart';
+import 'package:provider/provider.dart';
+
+import '../sql_queries.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,45 +14,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   profileAppBar() {
     return PreferredSize(
       preferredSize: const Size(double.infinity, 310),
       child: Container(
         height: 300,
         padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-              Text("Hazir",
-              style: TextStyle(
-                letterSpacing: 4,
-                fontSize: 64,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-              ),
-              ),
-            Text("Teacher Assistant",
-              style: TextStyle(
-                  fontSize: 21,
-                  color: Colors.white
-              ),
+            Text(
+              "Hazir",
+              style: TextStyle(letterSpacing: 4, fontSize: 64, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            Text(
+              "Teacher Assistant",
+              style: TextStyle(fontSize: 21, color: Colors.white),
             ),
             SizedBox(
               height: 40.0,
             ),
-            Text("Login",
-              style: TextStyle(
-                  letterSpacing: 1,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-              ),
+            Text(
+              "Login",
+              style: TextStyle(letterSpacing: 1, fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
             )
           ],
         ),
@@ -56,87 +47,77 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
   loginForm() {
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
         Padding(
-          padding: const EdgeInsets.only(
-              top: 80.0,
-              left: 50.0,
-              right: 50.0
-          ),
+          padding: const EdgeInsets.only(top: 80.0, left: 50.0, right: 50.0),
           child: TextFormField(
             autofocus: false,
             readOnly: false,
             decoration: new InputDecoration(
               hintText: "e.g ab01234",
               labelText: "HU ID",
-              labelStyle: TextStyle(
-                  fontSize: 18.0
-              ),
+              labelStyle: TextStyle(fontSize: 18.0),
               fillColor: Colors.white,
               border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.0),
                 borderSide: new BorderSide(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                 ),
               ),
               enabledBorder: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(
-                    color: Theme.of(context).primaryColor,
-                    width: 2
-                ),
+                borderSide: new BorderSide(color: Theme
+                    .of(context)
+                    .primaryColor, width: 2),
               ),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-              top: 30.0,
-              left: 50.0,
-              right: 50.0
-          ),
+          padding: const EdgeInsets.only(top: 30.0, left: 50.0, right: 50.0),
           child: TextFormField(
             autofocus: false,
             readOnly: false,
             decoration: new InputDecoration(
               hintText: "Your HU password",
               labelText: "Password",
-              labelStyle: TextStyle(
-                  fontSize: 18.0
-              ),
+              labelStyle: TextStyle(fontSize: 18.0),
               fillColor: Colors.white,
               border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.0),
                 borderSide: new BorderSide(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                 ),
               ),
               enabledBorder: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(10.0),
-                borderSide: new BorderSide(
-                    color: Theme.of(context).primaryColor,
-                    width: 2
-                ),
+                borderSide: new BorderSide(color: Theme
+                    .of(context)
+                    .primaryColor, width: 2),
               ),
             ),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: 30.0,
-              left: 50.0,
-              right: 50.0,
+            top: 30.0,
+            left: 50.0,
+            right: 50.0,
           ),
-          child: FlatButton(onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => StudentDashboard()),
-            );
-          },
+          child: FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StudentDashboard()),
+                );
+              },
               padding: EdgeInsets.zero,
               child: Material(
                 elevation: 5.0,
@@ -144,36 +125,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   height: 50.0,
                   width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).primaryColor
-                  ),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Theme
+                      .of(context)
+                      .primaryColor),
                   child: Center(
-                    child: Text("Login as Student",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+                    child: Text("Login as Student", style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold)),
                   ),
                 ),
-              )
-          ),
+              )),
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: 20.0,
-              left: 50.0,
-              right: 50.0,
-              bottom: 30.0,
+            top: 20.0,
+            left: 50.0,
+            right: 50.0,
+            bottom: 30.0,
           ),
-          child: FlatButton(onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TutorDashboard()),
-            );
-          },
+          child: FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TutorDashboard()),
+                );
+              },
               padding: EdgeInsets.zero,
               child: Material(
                 elevation: 5.0,
@@ -181,22 +155,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   height: 50.0,
                   width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).primaryColor
-                  ),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Theme
+                      .of(context)
+                      .primaryColor),
                   child: Center(
-                    child: Text("Login as Tutor",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+                    child: Text("Login as Tutor", style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold)),
                   ),
                 ),
-              )
-          ),
+              )),
         ),
       ],
     );
@@ -205,11 +171,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-          resizeToAvoidBottomInset: true,
-            resizeToAvoidBottomPadding: true,
-            appBar: profileAppBar(),
-            body: loginForm(),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.system_update_alt),
+          onPressed: () {
+            Provider
+                .of<AppSession>(context, listen: false)
+                .database
+                .execute(init_database);
+          },
+        ),
+        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomPadding: true,
+        appBar: profileAppBar(),
+        body: context
+            .watch<AppSession>()
+            .database == null
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : loginForm(),
       ),
     );
   }

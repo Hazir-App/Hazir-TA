@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hazir_ta/common_screens/loginScreen.dart';
+import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/student_screens/studentcoursePage.dart';
 import 'package:hazir_ta/student_screens/student_dashboard.dart';
 import 'package:hazir_ta/student_screens/tutorProfileScreen.dart';
 import 'package:hazir_ta/tutor_screens/dashboard.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<AppSession>(
+      create: (_) => AppSession(),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,5 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
