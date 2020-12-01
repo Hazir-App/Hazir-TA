@@ -5,11 +5,14 @@ import 'package:hazir_ta/models/query_helper.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:hazir_ta/sql_queries.dart';
 import 'dart:core';
+import 'Data.dart';
 import 'User.dart';
 
 class AppSession extends ChangeNotifier {
   Database database;
   User user;
+  Data data;
+
   AppSession() {
     loadDatabase();
   }
@@ -49,6 +52,9 @@ class AppSession extends ChangeNotifier {
           textColor: Colors.white,
           fontSize: 16.0
       );
+    }else{
+      data = Data(user.idUser);
+      await data.getAll(database);
     }
     notifyListeners();
   }
