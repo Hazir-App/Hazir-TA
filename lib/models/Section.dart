@@ -6,7 +6,6 @@ class Section {
   String raName;
   String instructorName;
   Course courseSection;
-
   Section.fromMap(Map<String, dynamic> data) {
     sectionId = data['section_id'];
     sectionCode = data['section_code'];
@@ -17,4 +16,6 @@ class Section {
       courseCode: data['course_code'],
     );
   }
+
+
 }
