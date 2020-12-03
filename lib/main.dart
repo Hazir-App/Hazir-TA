@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_sqflite_manager/flutter_sqflite_manager.dart';
 import 'package:hazir_ta/common_screens/loginScreen.dart';
 import 'package:hazir_ta/models/AppSession.dart';
-import 'package:hazir_ta/student_screens/studentcoursePage.dart';
-import 'package:hazir_ta/student_screens/student_dashboard.dart';
-import 'package:hazir_ta/student_screens/tutorProfileScreen.dart';
-import 'package:hazir_ta/tutor_screens/dashboard.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -28,7 +24,13 @@ class MyApp extends StatelessWidget {
         primaryColorLight: Color.fromRGBO(213, 196, 190, 1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      home: SqfliteManager(
+        database: context.watch<AppSession>().database,
+        // Update rowsPerPage parameter to avoid scrolling in different screen sizes
+        rowsPerPage: 6,
+        enable: true,
+        child: LoginScreen(),
+      ),
     );
   }
 }
