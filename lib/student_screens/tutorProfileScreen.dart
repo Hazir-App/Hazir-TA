@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hazir_ta/student_screens/studentcoursePage.dart';
-import 'package:hazir_ta/tutor_screens/tutorCoursePage.dart';
+import 'package:flutter/material.dart';
 import 'package:hazir_ta/tutor_screens/tutorSessionInfo.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -159,12 +157,7 @@ class _TutorProfileState extends State<TutorProfile> {
                   return Padding(
                     padding: const EdgeInsets.all(7.0),
                     child: InkWell(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TutorCoursePage()),
-                        );
-                      },
+                      onTap: () {},
                       child: Material(
                         borderRadius: BorderRadius.circular(30.0),
                         elevation: 5.0,

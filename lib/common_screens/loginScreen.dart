@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/models/User.dart';
-import 'package:hazir_ta/student_screens/student_dashboard.dart';
 import 'package:hazir_ta/tutor_screens/dashboard.dart';
 import 'package:provider/provider.dart';
 
@@ -118,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (context.read<AppSession>().user.userRole == UserRole.student) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => StudentDashboard()),
+                      MaterialPageRoute(builder: (context) => TutorDashboard()),
                     );
                   } else {
                     Navigator.push(

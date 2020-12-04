@@ -1,10 +1,12 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hazir_ta/models/query_helper.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:hazir_ta/sql_queries.dart';
-import 'dart:core';
+import 'package:sqflite/sqflite.dart';
+
 import 'Course.dart';
 import 'Section.dart';
 import 'User.dart';
@@ -48,6 +50,7 @@ class AppSession extends ChangeNotifier {
       Section s = Section.fromMap(element);
       allSections.add(s);
     });
+    print(allCourses);
   }
 
   void _onCreateDatabase(Database db, int version) async {
@@ -60,7 +63,6 @@ class AppSession extends ChangeNotifier {
   }
 
   void loginUser(String username, String password) async {
-
     user  = await User.login(database, username, password);
     if(user==null){
       Fluttertoast.showToast(
@@ -70,10 +72,12 @@ class AppSession extends ChangeNotifier {
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0
-      );
+          fontSize: 16.0);
     }
     notifyListeners();
   }
 
+  void update() {
+    notifyListeners();
+  }
 }

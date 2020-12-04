@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hazir_ta/student_screens/addNewCourse.dart';
+import 'package:hazir_ta/common_screens/addEnrolledCourse.dart';
+import 'package:hazir_ta/common_screens/coursePage.dart';
 import 'package:hazir_ta/student_screens/studentAccountSettings.dart';
 import 'package:hazir_ta/student_screens/studentSessionInfo.dart';
-import 'package:hazir_ta/student_screens/studentcoursePage.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class StudentDashboard extends StatefulWidget {
@@ -160,7 +160,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => StudentNewCourse()),
+                      MaterialPageRoute(builder: (context) => AddEnrolledCourse()),
                     );
                   })
             ],
@@ -183,7 +183,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => StudentCoursePage()),
+                          MaterialPageRoute(builder: (context) => CoursePage()),
                         );
                       },
                       child: Material(
