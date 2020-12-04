@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/models/Course.dart';
 import 'package:hazir_ta/models/Section.dart';
+import 'package:hazir_ta/models/User.dart';
 import 'file:///D:/Hazir-TA/lib/common_screens/tutorProfileScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -68,9 +69,7 @@ class _CoursePageState extends State<CoursePage> {
                 "Instructor",
                 style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              Text("${widget.section.instructorName}", style: TextStyle(color: Theme
-                  .of(context)
-                  .primaryColor, fontSize: 18))
+              Text("${widget.section.instructorName}", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18))
             ],
           ),
           SizedBox(
@@ -83,9 +82,7 @@ class _CoursePageState extends State<CoursePage> {
                 "Research Assistant",
                 style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              Text(widget.section.raName, style: TextStyle(color: Theme
-                  .of(context)
-                  .primaryColor, fontSize: 18))
+              Text(widget.section.raName, style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18))
             ],
           )
         ],
@@ -102,23 +99,23 @@ class _CoursePageState extends State<CoursePage> {
         children: [
           widget.course.tutors.isEmpty
               ? Container(
-              height: 500,
-              child: Text(
-                "No Tutor Available!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  letterSpacing: 2.0,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ))
+                  height: 500,
+                  child: Text(
+                    "No Tutor Available!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      letterSpacing: 2.0,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ))
               : Center(
-            child: Text(
-              "Available TAs",
-              style: TextStyle(letterSpacing: 2.0, color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
+                  child: Text(
+                    "Available TAs",
+                    style: TextStyle(letterSpacing: 2.0, color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
           SizedBox(
             height: 10.0,
           ),
@@ -133,9 +130,19 @@ class _CoursePageState extends State<CoursePage> {
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TutorProfile(user: widget.course.tutors[index],)),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TutorProfile(
+                              user: widget.course.tutors[index],
+                              onUpdate: (User u) {
+                                setState(
+                                  () {
+                                    widget.course.tutors[index] = u;
+                                  },
+                                );
+                              },
+                            ),
+                          ));
                     },
                     child: Material(
                       elevation: 3.0,
@@ -156,15 +163,13 @@ class _CoursePageState extends State<CoursePage> {
                                   radius: 23,
                                   backgroundImage: widget.course.tutors[index].profileUrl == null
                                       ? NetworkImage(
-                                      "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg")
+                                          "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg")
                                       : NetworkImage("${widget.course.tutors[index].profileUrl}"),
                                 ),
                               ),
                               Text(
                                 "${widget.course.tutors[index].firstName + " " + widget.course.tutors[index].lastName}",
-                                style: TextStyle(color: Theme
-                                    .of(context)
-                                    .primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -172,9 +177,7 @@ class _CoursePageState extends State<CoursePage> {
                                 children: [
                                   Text(
                                     "Course Rating",
-                                    style: TextStyle(color: Theme
-                                        .of(context)
-                                        .primaryColor, fontSize: 12),
+                                    style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
                                   ),
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -187,18 +190,14 @@ class _CoursePageState extends State<CoursePage> {
                                       Center(
                                         child: Text(
                                           "${widget.course.tutors[index].courseRating(widget.section.courseSection.courseId).toStringAsFixed(1)}",
-                                          style: TextStyle(color: Theme
-                                              .of(context)
-                                              .primaryColor, fontSize: 12.0),
+                                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12.0),
                                         ),
                                       )
                                     ],
                                   ),
                                   Text(
                                     "Avg Rating",
-                                    style: TextStyle(color: Theme
-                                        .of(context)
-                                        .primaryColor, fontSize: 12),
+                                    style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
                                   ),
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -211,9 +210,7 @@ class _CoursePageState extends State<CoursePage> {
                                       Center(
                                         child: Text(
                                           "${widget.course.tutors[index].averageRating.toStringAsFixed(1)}",
-                                          style: TextStyle(color: Theme
-                                              .of(context)
-                                              .primaryColor, fontSize: 12.0),
+                                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12.0),
                                         ),
                                       )
                                     ],
@@ -241,39 +238,13 @@ class _CoursePageState extends State<CoursePage> {
       onPressed: () async {
         Navigator.pop(context);
         if (widget.tutoredCourse) {
-          await context
-              .read<AppSession>()
-              .database
-              .rawDelete(
-              "DELETE FROM TutoredCourse WHERE  tutored_by_user_id = '${context
-                  .read<AppSession>()
-                  .user
-                  .idUser}' AND tutored_section_id = '${context
-                  .read<AppSession>()
-                  .user
-                  .tutoredSections[widget.index].sectionId}'");
-          context
-              .read<AppSession>()
-              .user
-              .tutoredSections
-              .removeAt(widget.index);
+          await context.read<AppSession>().database.rawDelete(
+              "DELETE FROM TutoredCourse WHERE  tutored_by_user_id = '${context.read<AppSession>().user.idUser}' AND tutored_section_id = '${context.read<AppSession>().user.tutoredSections[widget.index].sectionId}'");
+          context.read<AppSession>().user.tutoredSections.removeAt(widget.index);
         } else {
-          await context
-              .read<AppSession>()
-              .database
-              .rawDelete(
-              "DELETE FROM EnrolledCourse WHERE  enrolled_by_user_id = '${context
-                  .read<AppSession>()
-                  .user
-                  .idUser}' AND enrolled_section_id = '${context
-                  .read<AppSession>()
-                  .user
-                  .enrolledSections[widget.index].sectionId}'");
-          context
-              .read<AppSession>()
-              .user
-              .enrolledSections
-              .removeAt(widget.index);
+          await context.read<AppSession>().database.rawDelete(
+              "DELETE FROM EnrolledCourse WHERE  enrolled_by_user_id = '${context.read<AppSession>().user.idUser}' AND enrolled_section_id = '${context.read<AppSession>().user.enrolledSections[widget.index].sectionId}'");
+          context.read<AppSession>().user.enrolledSections.removeAt(widget.index);
         }
 
         context.read<AppSession>().update();
@@ -294,67 +265,67 @@ class _CoursePageState extends State<CoursePage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Theme.of(context).primaryColor));
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 90,
-            title: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        toolbarHeight: 90,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.section.courseSection.courseCode,
-                        style: TextStyle(fontSize: 15.0),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        widget.section.courseSection.courseName,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ],
+                  Text(
+                    widget.section.courseSection.courseCode,
+                    style: TextStyle(fontSize: 15.0),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Section",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        widget.section.sectionCode,
-                        style: TextStyle(fontSize: 23.0),
-                      )
-                    ],
-                  )
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    widget.section.courseSection.courseName,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: TextStyle(fontSize: 18.0),
+                  ),
                 ],
               ),
-            ),
-            elevation: 5,
-          ),
-          body: ListView(
-            padding: EdgeInsets.all(0.0),
-            physics: BouncingScrollPhysics(),
-            children: [
-              courseDetails(),
-              widget.tutoredCourse ? sessionCalenderView() : availablePeerTutors(),
-              courseDeleteButton(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "Section",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    widget.section.sectionCode,
+                    style: TextStyle(fontSize: 23.0),
+                  )
+                ],
+              )
             ],
           ),
-        ));
+        ),
+        elevation: 5,
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(0.0),
+        physics: BouncingScrollPhysics(),
+        children: [
+          courseDetails(),
+          widget.tutoredCourse ? sessionCalenderView() : availablePeerTutors(),
+          courseDeleteButton(),
+        ],
+      ),
+    ));
   }
 }

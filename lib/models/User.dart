@@ -31,11 +31,11 @@ class User {
 
   double courseRating(int course_id) {
     double c_rating = 0;
-    int count = 0;
+    int count=0;
     ratings.forEach((element) {
       if (element.rated_course_id == course_id) {
-        averageRating += element.rating;
-        count += 1;
+        c_rating += element.rating;
+        count++;
       }
     });
 
@@ -61,7 +61,7 @@ class User {
       await enrolledSections[i].courseSection.getTutors(database);
     }
 
-    List<Map> ratingMap = await database.rawQuery("Select * from rating where rating_consumer='${idUser}'");
+    List<Map> ratingMap = await database.rawQuery("Select * from rating where rating_consumer='${idUser}' or rating_provider='${idUser}'");
     ratingMap.forEach((element) {
       ratings.add(Rating.fromMap(element));
     });
@@ -70,11 +70,11 @@ class User {
   }
 
   void updateRating(){
+    double sum=0;
     ratings.forEach((element) {
-      averageRating += element.rating;
+      sum += element.rating;
     });
-
-    averageRating = averageRating / ratings.length;
+    averageRating = sum / ratings.length;
   }
 
   void updateUserDatabase(Database database) async {

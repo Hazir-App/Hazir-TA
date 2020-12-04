@@ -5,9 +5,9 @@ import 'package:hazir_ta/models/User.dart';
 import 'package:hazir_ta/tutor_screens/tutorSessionInfo.dart';
 import 'package:table_calendar/table_calendar.dart';
 class TutorProfile extends StatefulWidget {
-  final User user;
-
-  const TutorProfile({Key key, this.user}) : super(key: key);
+  User user;
+  Function onUpdate;
+  TutorProfile({this.user,this.onUpdate});
   @override
   _TutorProfileState createState() => _TutorProfileState();
 }
@@ -91,7 +91,7 @@ class _TutorProfileState extends State<TutorProfile> {
                     size: 18,
                   ),
                   Center(
-                    child: Text("${widget.user.averageRating}",
+                    child: Text("${widget.user.averageRating.toStringAsFixed(1)}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0
@@ -151,7 +151,12 @@ class _TutorProfileState extends State<TutorProfile> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RateTutor(user: widget.user,course: widget.user.tutoredSections[index].courseSection)),
+                          MaterialPageRoute(builder: (context) => RateTutor(user: widget.user,course: widget.user.tutoredSections[index].courseSection,updateUser: (User u){setState(() {
+                            setState(() {
+                              widget.user=u;
+                            });
+                            widget.onUpdate(u);
+                          });},)),
                         );
                       },
                       child: Material(
