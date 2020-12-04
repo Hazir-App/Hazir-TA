@@ -66,6 +66,10 @@ class User {
       ratings.add(Rating.fromMap(element));
     });
 
+    updateRating();
+  }
+
+  void updateRating(){
     ratings.forEach((element) {
       averageRating += element.rating;
     });

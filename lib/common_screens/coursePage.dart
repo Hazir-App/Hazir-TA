@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/models/Course.dart';
 import 'package:hazir_ta/models/Section.dart';
-import 'package:hazir_ta/student_screens/tutorProfileScreen.dart';
+import 'file:///D:/Hazir-TA/lib/common_screens/tutorProfileScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -134,7 +134,7 @@ class _CoursePageState extends State<CoursePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TutorProfile()),
+                        MaterialPageRoute(builder: (context) => TutorProfile(user: widget.course.tutors[index],)),
                       );
                     },
                     child: Material(
@@ -245,13 +245,13 @@ class _CoursePageState extends State<CoursePage> {
               .read<AppSession>()
               .database
               .rawDelete(
-              "DELETE FROM TutoredCourse WHERE  tutred_by_user_id = '${context
+              "DELETE FROM TutoredCourse WHERE  tutored_by_user_id = '${context
                   .read<AppSession>()
                   .user
                   .idUser}' AND tutored_section_id = '${context
                   .read<AppSession>()
                   .user
-                  .enrolledSections[widget.index].sectionId}'");
+                  .tutoredSections[widget.index].sectionId}'");
           context
               .read<AppSession>()
               .user
