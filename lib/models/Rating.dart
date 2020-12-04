@@ -10,4 +10,8 @@ class Rating {
     rated_course_id = data["rating_course_id"];
     rating = data["rating_given"].toDouble();
   }
+
+// update(Database database){
+//   database.update(, values)
+// }
 }
