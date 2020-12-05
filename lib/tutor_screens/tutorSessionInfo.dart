@@ -1,12 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hazir_ta/models/AppSession.dart';
+import 'package:hazir_ta/models/Session.dart';
+import 'package:provider/provider.dart';
 
 class TutorSessionInfoScreen extends StatefulWidget {
+  Session session;
+
+  TutorSessionInfoScreen({Key key,this.session}) : super(key: key);
+
   @override
   _TutorSessionInfoScreenState createState() => _TutorSessionInfoScreenState();
 }
 
 class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
+  
+  @override
+  initState()  {
+    super.initState();
+    // print(widget.session.courseId);
+    // widget.session.loadMoreInfo(context.read<AppSession>().database, context.read<AppSession>().user.idUser,context.read<AppSession>().user.userIntRole);
+
+  }
 
   infoContent() {
     return ListView(
@@ -20,7 +35,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: TextFormField(
-            initialValue: "General Session",
+            initialValue: widget.session.sessionName,
             autofocus: false,
             readOnly: true,
             decoration: new InputDecoration(
@@ -48,7 +63,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: TextFormField(
-            initialValue: "CS-335: Database Systems",
+            initialValue: widget.session.courseName,
             autofocus: false,
             readOnly: true,
             decoration: new InputDecoration(
@@ -76,7 +91,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0),
           child: TextFormField(
-            initialValue: "24 November 2020",
+            initialValue: widget.session.sessionDate,
             autofocus: false,
             readOnly: true,
             decoration: new InputDecoration(
@@ -109,7 +124,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
               child: Container(
                 width: 200.0,
                 child: TextFormField(
-                  initialValue: "4:00 pm",
+                  initialValue: widget.session.sessionStartTime,
                   autofocus: false,
                   readOnly: true,
                   decoration: new InputDecoration(
@@ -140,7 +155,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
               child: Container(
                 width: 200,
                 child: TextFormField(
-                  initialValue: "5:00 pm",
+                  initialValue: widget.session.sessionEndTime,
                   autofocus: false,
                   readOnly: true,
                   decoration: new InputDecoration(
@@ -229,68 +244,8 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: Text("Booked by",
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 18.0,
-              letterSpacing: 2.0,
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
-        ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 10.0
-                ),
-                child: Material(
-                  elevation: 3.0,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 35.0,
-                          vertical: 18.0
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Theme.of(context).primaryColor,
-                            child: CircleAvatar(
-                              radius: 28,
-                              backgroundImage: AssetImage("profilepic.png"),
-                            ),
-                          ),
-                          SizedBox(width: 50.0),
-                          Text("Abuzar Rasool",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
 
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }
-        )
+
       ],
     );
   }

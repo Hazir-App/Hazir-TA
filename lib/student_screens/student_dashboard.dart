@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hazir_ta/common_screens/addEnrolledCourse.dart';
 import 'package:hazir_ta/common_screens/coursePage.dart';
+import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/student_screens/studentAccountSettings.dart';
 import 'package:hazir_ta/student_screens/studentSessionInfo.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:provider/provider.dart';
 
 class StudentDashboard extends StatefulWidget {
   @override
@@ -307,7 +309,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               shrinkWrap: true,
               physics: ScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 5,
+              itemCount: context.read<AppSession>().user.bookedSessions.length,
               itemBuilder: (context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
@@ -334,7 +336,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                                 color: Colors.white
                             ),
                             child: Center(
-                                child: Text("General Session",
+                                child: Text(context.read<AppSession>().user.bookedSessions[index].sessionName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
@@ -351,7 +353,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                                 color: Theme.of(context).primaryColor
                             ),
                             child: Center(
-                                child: Text("2:15pm - 3:00pm",
+                                child: Text("${context.read<AppSession>().user.bookedSessions[index].sessionStartTime} - ${context.read<AppSession>().user.bookedSessions[index].sessionEndTime}",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,

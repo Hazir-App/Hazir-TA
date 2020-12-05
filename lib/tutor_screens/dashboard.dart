@@ -110,7 +110,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                     .averageRating == 0 ? "N/A" : context
                                     .watch<AppSession>()
                                     .user
-                                    .averageRating}",
+                                    .averageRating.toStringAsFixed(1)}",
                                 style: TextStyle(color: Colors.white, fontSize: 15.0),
                               ),
                             )
@@ -499,7 +499,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
               shrinkWrap: true,
               physics: ScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 5,
+              itemCount: context.watch<AppSession>().user.tutoredSessions.length,
               itemBuilder: (context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -507,7 +507,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TutorSessionInfoScreen()),
+                        MaterialPageRoute(builder: (context) => TutorSessionInfoScreen(session: context.watch<AppSession>().user.tutoredSessions[index])),
                       );
                     },
                     child: Material(
@@ -523,7 +523,8 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                 .width * 0.5,
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), color: Colors.white),
                             child: Center(
-                                child: Text("General Session",
+                                child: Text(context
+                                    .watch<AppSession>().user.tutoredSessions[index].sessionName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
@@ -539,7 +540,100 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                 .primaryColor),
                             child: Center(
                                 child: Text(
-                                  "2:15pm - 3:00pm",
+                                  "${context.watch<AppSession>().user.tutoredSessions[index].sessionStartTime} - ${context.watch<AppSession>().user.tutoredSessions[index].sessionEndTime}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        )
+      ],
+    );
+  }
+
+  timeSlotsViewStudent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Timeslots",
+                style: TextStyle(letterSpacing: 2.0, color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.black54,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddTutoredCourse()),
+                    );
+                  })
+            ],
+          ),
+        ),
+        Container(
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: context.watch<AppSession>().user.bookedSessions.length,
+              itemBuilder: (context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TutorSessionInfoScreen(session: context.watch<AppSession>().user.bookedSessions[index])),
+                      );
+                    },
+                    child: Material(
+                      elevation: 5.0,
+                      borderRadius: BorderRadius.circular(30.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 90,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.5,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), color: Colors.white),
+                            child: Center(
+                                child: Text(context
+                                    .watch<AppSession>().user.bookedSessions[index].sessionName,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                          ),
+                          Container(
+                            height: 90,
+                            width: 164,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), color: Theme
+                                .of(context)
+                                .primaryColor),
+                            child: Center(
+                                child: Text(
+                                  "${context.watch<AppSession>().user.bookedSessions[index].sessionStartTime} - ${context.watch<AppSession>().user.tutoredSessions[index].sessionEndTime}",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -570,7 +664,11 @@ class _TutorDashboardState extends State<TutorDashboard> {
             .user
             .userRole == UserRole.tutor ? tutoredCourses() : Container(),
         sessionCalenderView(),
-        timeSlotsView()
+        context
+            .watch<AppSession>()
+            .user
+            .userRole == UserRole.tutor ? timeSlotsView() : Container(height: 150,
+            child: Center(child: Text("No Sessions")))
       ],
     );
   }

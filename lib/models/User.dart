@@ -21,6 +21,8 @@ class User {
   List<Session> bookedSessions = [];
   List<Session> tutoredSessions = [];
 
+  int userIntRole;
+
   User();
 
   User.fromMap(Map<String, dynamic> data) {
@@ -46,6 +48,8 @@ class User {
   }
 
   void loadData(Database database) async {
+
+    userIntRole = userRole == UserRole.student ? 0 : -1;
     List<Map> enrolledSectionMap = await database.rawQuery(
         "SELECT section_id, section_code,(SELECT ra_name from ResearchAssistants where S.section_ra_id = section_ra_id) as ra_name, (SELECT instructor_name from Instructors where S.section_instrucutor_id = section_instrucutor_id) as instructor_name, C.course_id,C.course_name,C.course_code FROM Section S INNER JOIN Course C ON S.section_course_id = C.course_id WHERE S.section_id in (SELECT enrolled_section_id FROM EnrolledCourse where enrolled_by_user_id='${idUser}')");
     List<Map> tutoredSectionMap = await database.rawQuery(
@@ -78,6 +82,7 @@ class User {
         )""");
 
     print(userRole);
+    print(firstName);
     if (userRole == UserRole.tutor) {
       List<Map> allTutoredSessionData = await database.rawQuery(
           """select * 
@@ -88,18 +93,22 @@ class User {
         )""");
 
       allTutoredSessionData.forEach((element) {
-        tutoredSessions.add(Session.fromMap(element));
+        Session ss = Session.fromMap(element);
+        ss.loadMoreInfo(database, idUser, userIntRole);
+        tutoredSessions.add(ss);
+
       });
 
-      print(tutoredSessions.length);
+
+    } else {
+      allEnrolledSessionData.forEach((element) {
+        Session ss = Session.fromMap(element);
+        ss.loadMoreInfo(database, idUser, userIntRole);
+        bookedSessions.add(ss);
+      });
+
+      print(bookedSessions);
     }
-
-
-    allEnrolledSessionData.forEach((element) {
-      bookedSessions.add(Session.fromMap(element));
-    });
-
-    print(bookedSessions.length);
 
     updateRating();
   }

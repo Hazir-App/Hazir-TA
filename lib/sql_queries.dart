@@ -5,13 +5,9 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS Booking;
 CREATE TABLE Booking (id_booking INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, booked_by_user VARCHAR REFERENCES HazirUser (id_user) NOT NULL, booked_session INTEGER REFERENCES Session (id_session) NOT NULL, tutored_by_user STRING REFERENCES HazirUser (id_user) NOT NULL);
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (1, 'ar06194', 2, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (1, 'ar06194', 0, 'sa06195');
 INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (2, 'ar06195', 1, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (3, 'ar06195', 4, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (4, 'ar06195', 5, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (5, 'ar06195', 3, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (6, 'ar06195', 7, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (7, 'ar06195', 6, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (3, 'ar06195', 2, 'sa06195');
 
 
 DROP TABLE IF EXISTS Course;
@@ -194,13 +190,11 @@ INSERT INTO Semester (semester_id, semester_name) VALUES (1, 'Spring 2020');
 
 DROP TABLE IF EXISTS Session;
 CREATE TABLE Session (id_session INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, session_name VARCHAR NOT NULL, session_date DATE NOT NULL, session_start_time TIME NOT NULL, session_end_time TIME NOT NULL, bookable BOOLEAN NOT NULL, max_students INTEGER, course_id int REFERENCES Course (course_id), section_id INTEGER REFERENCES Section (section_id));
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (1, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 1, 1);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (2, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 1, 1);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (3, 'General Session', '2020-12-03', '00:17:00', '00:18:00', 0, 30, 2, 1);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (4, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 2, 2);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (5, 'General Session', '2020-12-08', '00:17:00', '00:18:00', 0, 30, 3, 2);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (6, 'General Session', '2020-12-06', '00:17:00', '00:18:00', 0, 30, 4, 2);
-INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (7, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 5, 2);
+INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (0, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 0, 1);
+INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (1, 'General Session', '2020-12-03', '00:17:00', '00:18:00', 0, 30, 2, 54);
+INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (2, 'General Session', '2020-12-08', '00:17:00', '00:18:00', 0, 30, 3, 60);
+INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (3, 'General Session', '2020-12-06', '00:17:00', '00:18:00', 0, 30, 4, 64);
+INSERT INTO Session (id_session, session_name, session_date, session_start_time, session_end_time, bookable, max_students, course_id, section_id) VALUES (4, 'General Session', '2020-12-04', '00:17:00', '00:18:00', 0, 30, 1, 52);
 
 
 DROP TABLE IF EXISTS TutoredCourse;
