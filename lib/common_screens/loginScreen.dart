@@ -85,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             autofocus: false,
             readOnly: false,
+            obscureText: true,
             decoration: new InputDecoration(
               hintText: "Your HU password",
               labelText: "Password",

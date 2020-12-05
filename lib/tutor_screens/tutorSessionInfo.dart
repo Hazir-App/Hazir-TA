@@ -122,7 +122,7 @@ class _TutorSessionInfoScreenState extends State<TutorSessionInfoScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Container(
-                width: 200.0,
+                width: 150.0,
                 child: TextFormField(
                   initialValue: widget.session.sessionStartTime,
                   autofocus: false,

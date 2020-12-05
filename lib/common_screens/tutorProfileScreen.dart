@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:hazir_ta/common_screens/rateTutor.dart';
 import 'package:hazir_ta/models/User.dart';
 import 'package:hazir_ta/tutor_screens/tutorSessionInfo.dart';
@@ -58,7 +59,17 @@ class _TutorProfileState extends State<TutorProfile> {
                           Icons.forward_to_inbox_sharp,
                           color: Colors.white,
                       ),
-                      onPressed: () {}
+                      onPressed: () async {
+                        final Email email = Email(
+                          body: 'Tutor Help',
+                          subject: 'Tutor Help',
+                          recipients: ['${widget.user.email}'],
+                          isHTML: false,
+                        );
+
+                        await FlutterEmailSender.send(email);
+
+                      }
                   )
                 ],
               ),
@@ -276,7 +287,7 @@ class _TutorProfileState extends State<TutorProfile> {
                         children: [
                           Container(
                             height: 90,
-                            width: 280,
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30.0),
                                 color: Colors.white
@@ -291,6 +302,7 @@ class _TutorProfileState extends State<TutorProfile> {
                                 )
                             ),
                           ),
+                          Spacer(),
                           Container(
                             height: 90,
                             width: 164,
