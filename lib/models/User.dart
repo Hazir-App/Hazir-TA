@@ -1,4 +1,5 @@
 import 'package:hazir_ta/models/Rating.dart';
+import 'package:hazir_ta/models/Session.dart';
 import 'package:hazir_ta/models/query_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,6 +18,8 @@ class User {
   List<Section> enrolledSections = [];
   List<Section> tutoredSections = [];
   List<Rating> ratings = [];
+  List<Session> bookedSessions = [];
+  List<Session> tutoredSessions = [];
 
   User();
 
@@ -65,6 +68,38 @@ class User {
     ratingMap.forEach((element) {
       ratings.add(Rating.fromMap(element));
     });
+
+    List<Map> allEnrolledSessionData = await database.rawQuery(
+        """select * 
+          from Session
+          where id_session in (
+          select booked_session from Booking
+          where booked_by_user = '$idUser'
+        )""");
+
+    print(userRole);
+    if (userRole == UserRole.tutor) {
+      List<Map> allTutoredSessionData = await database.rawQuery(
+          """select * 
+          from Session
+          where id_session in (
+          select booked_session from Booking
+          where tutored_by_user = '$idUser'
+        )""");
+
+      allTutoredSessionData.forEach((element) {
+        tutoredSessions.add(Session.fromMap(element));
+      });
+
+      print(tutoredSessions.length);
+    }
+
+
+    allEnrolledSessionData.forEach((element) {
+      bookedSessions.add(Session.fromMap(element));
+    });
+
+    print(bookedSessions.length);
 
     updateRating();
   }

@@ -523,8 +523,7 @@ class _TutorDashboardState extends State<TutorDashboard> {
                                 .width * 0.5,
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0), color: Colors.white),
                             child: Center(
-                                child: Text(
-                                  "General Session",
+                                child: Text("General Session",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,

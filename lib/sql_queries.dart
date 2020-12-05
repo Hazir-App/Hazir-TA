@@ -5,11 +5,13 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS Booking;
 CREATE TABLE Booking (id_booking INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, booked_by_user VARCHAR REFERENCES HazirUser (id_user) NOT NULL, booked_session INTEGER REFERENCES Session (id_session) NOT NULL, tutored_by_user STRING REFERENCES HazirUser (id_user) NOT NULL);
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (1, 'sa06195', 1, 'ar06194');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (3, 'sa06195', 2, 'ar06194');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (5, 'sa06195', 3, 'ar06194');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (6, 'ar06194', 4, 'sa06195');
-INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (7, 'sa06195', 7, 'ar06194');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (1, 'ar06194', 2, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (2, 'ar06195', 1, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (3, 'ar06195', 4, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (4, 'ar06195', 5, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (5, 'ar06195', 3, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (6, 'ar06195', 7, 'sa06195');
+INSERT INTO Booking (id_booking, booked_by_user, booked_session, tutored_by_user) VALUES (7, 'ar06195', 6, 'sa06195');
 
 
 DROP TABLE IF EXISTS Course;

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hazir_ta/common_screens/tutorProfileScreen.dart';
 import 'package:hazir_ta/models/AppSession.dart';
 import 'package:hazir_ta/models/Course.dart';
 import 'package:hazir_ta/models/Section.dart';
 import 'package:hazir_ta/models/User.dart';
-import 'file:///D:/Hazir-TA/lib/common_screens/tutorProfileScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
